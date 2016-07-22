@@ -1,4 +1,3 @@
-/*
 The MIT License (MIT)
 
 Copyright (c) 2016 Olavi Haapala
@@ -24,63 +23,44 @@ SOFTWARE.
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import "../api.js" as API
 
-Page {
-    id: root
+BackgroundItem {
+    id: rantItem
 
-    SilicaFlickable {
-        id: flickable
+    property var item
+
+    height: 250
+    width: parent.width
+
+    Column {
+        id: column
         width: parent.width
-        height: parent.height
 
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("Refresh")
-                onClicked: {
-                    console.log("Unimplemented")
-                }
-            }
-            MenuItem {
-                text: qsTr("About")
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("About.qml"))
-                }
-            }
+        Label {
+            id: username
+            text: item.userName
+            truncationMode: TruncationMode.Fade
+            color: Theme.primaryColor
         }
 
-        SilicaListView {
-            id: rantList
-            model: rantModel
-            anchors.fill: parent
-            header: PageHeader {
-                title: qStr("devRant")
-            }
+        Text {
+            font.pixelSize: Theme.fontSizeSmall
+            color: Theme.primaryColor
+            wrapMode: Text.WordWrap
+            width: root.width
+            text: item.text
+        }
 
-            delegate: RantListItem {
-                visible: dataLoaded
-                item: model
-            }
-
-            VerticalScrollDecorator {
-            }
-
-            PushUpMenu {
-                MenuItem {
-                    text: qsTr("Load more")
-                    onClicked: console.log("Load more")
-                }
-            }
+        Image {
+            id: rantImage
+            width: item.rantImage.width
+            height: item.rantImage.height
+            source: item.rantImage
         }
     }
 
-    Banner {
-        id: banner
+    onClicked: {
+        pageStack.push(Qt.resolvedUrl("../pages/RantPage.qml"), {rant:item});
     }
 
-    Component.onCompleted: {
-        console.log("onCompleted")
-    }
 }
-
-

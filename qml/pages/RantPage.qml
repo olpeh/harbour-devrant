@@ -24,62 +24,18 @@ SOFTWARE.
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import "../api.js" as API
 
 Page {
-    id: root
+    id: rantPage
+    property var rant
 
-    SilicaFlickable {
-        id: flickable
-        width: parent.width
-        height: parent.height
-
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("Refresh")
-                onClicked: {
-                    console.log("Unimplemented")
-                }
-            }
-            MenuItem {
-                text: qsTr("About")
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("About.qml"))
-                }
-            }
-        }
-
-        SilicaListView {
-            id: rantList
-            model: rantModel
-            anchors.fill: parent
-            header: PageHeader {
-                title: qStr("devRant")
-            }
-
-            delegate: RantListItem {
-                visible: dataLoaded
-                item: model
-            }
-
-            VerticalScrollDecorator {
-            }
-
-            PushUpMenu {
-                MenuItem {
-                    text: qsTr("Load more")
-                    onClicked: console.log("Load more")
-                }
-            }
-        }
+    Rant {
+        rant: rant
+        listMode: false
     }
 
     Banner {
         id: banner
-    }
-
-    Component.onCompleted: {
-        console.log("onCompleted")
     }
 }
 
