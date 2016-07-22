@@ -1,4 +1,6 @@
 # harbour-devrant
-Unofficial devRant application for SailfishOS
+Unofficial [devRant](https://www.devrant.io) application for SailfishOS
 
-WIP
+See [here](https://www.devrant.io/projects) for more similar projects
+
+WIP - Coming soon™
