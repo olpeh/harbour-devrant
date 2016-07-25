@@ -42,8 +42,6 @@ MouseArea {
 
     function notify(text, color) {
         popup.title = text
-        // Save also to log
-        Log.info(text)
         if (color && (typeof(color) != "undefined"))
             bg.color = color
         else {
@@ -55,8 +53,7 @@ MouseArea {
     Label {
         id: message
         anchors.verticalCenter: popup.verticalCenter
-        font.pixelSize: Theme.fontSizeMedium
-        font.bold: true
+        font.pixelSize: Theme.fontSizeSmall
         anchors.left: parent.left
         anchors.leftMargin: Theme.paddingMedium
         anchors.right: parent.right

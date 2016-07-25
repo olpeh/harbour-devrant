@@ -25,26 +25,10 @@ SOFTWARE.
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "pages"
-import "helpers.js" as HH
 
 ApplicationWindow
 {
-    property bool timerRunning : false
-    property bool breakTimerRunning: false
-    property string startTime: ""
-    property string durationNow: "0h 0min"
-    property double duration: 0
-    property string breakStartTime: ""
-    property string breakDurationNow: "0h 0min"
-    property double breakDuration: 0
-    property string thisWeek: "0"
-    property string thisMonth: "0"
-    property string today: "0"
     property Item firstPage
-    property string defaultProjectId: ""
-    property variant projects: []
-    property string currencyString: "€"
-    property int roundToNearest: 0
 
     id: appWindow
     initialPage: Component {

@@ -1,3 +1,4 @@
+/*
 The MIT License (MIT)
 
 Copyright (c) 2016 Olavi Haapala
@@ -25,42 +26,18 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 BackgroundItem {
-    id: rantItem
-
     property var item
-
-    height: 250
+    id: rantItem
+    height: rantElement.height + 4 * Theme.paddingLarge
     width: parent.width
 
-    Column {
-        id: column
-        width: parent.width
-
-        Label {
-            id: username
-            text: item.userName
-            truncationMode: TruncationMode.Fade
-            color: Theme.primaryColor
-        }
-
-        Text {
-            font.pixelSize: Theme.fontSizeSmall
-            color: Theme.primaryColor
-            wrapMode: Text.WordWrap
-            width: root.width
-            text: item.text
-        }
-
-        Image {
-            id: rantImage
-            width: item.rantImage.width
-            height: item.rantImage.height
-            source: item.rantImage
-        }
+    Rant {
+        id: rantElement
+        rant: item
     }
 
     onClicked: {
-        pageStack.push(Qt.resolvedUrl("../pages/RantPage.qml"), {rant:item});
+        pageStack.push(Qt.resolvedUrl("../pages/RantPage.qml"), {item: item});
     }
 
 }

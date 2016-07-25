@@ -129,7 +129,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     banner.notify(qsTr("Launching external browser"))
-                    Qt.openUrlExternally("https://github.com/olpeh/harbour-devrant/blob/master/LICENSE.md")
+                    Qt.openUrlExternally("https://raw.githubusercontent.com/olpeh/harbour-devrant/master/LICENSE")
                 }
             }
             Item {
@@ -137,6 +137,10 @@ Page {
                 height: 10
             }
         }
+    }
+
+    Banner {
+        id: banner
     }
 }
 

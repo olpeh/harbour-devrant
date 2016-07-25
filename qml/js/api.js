@@ -27,27 +27,28 @@ SOFTWARE.
 var BASE = "https://www.devrant.io/api/devrant";
 var APPID = "?app=3";
 
-function request(method, endpoint) {
+function request(method, endpoint, callBack) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             var res;
             try {
-                res = JSON.parse(xhr.responseText.toString())
+                res = JSON.parse(xhr.responseText.toString());
             } catch(err) {
                 res = {}
-                res.error = xhr.responseText.toString()
+                res.error = xhr.responseText.toString();
             }
-            return res;
+            callBack(res);
         }
     }
 
     xhr.open(method, BASE + endpoint + APPID);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Accept', 'application/json');
-    xhr.send()
+    xhr.send();
 }
 
-function getRecent() {
-    return request('GET', '/rants')
+function getRecent(callBack) {
+    console.log("Let's get recent rants!");
+    return request('GET', '/rants', callBack);
 }

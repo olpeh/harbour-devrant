@@ -24,13 +24,12 @@ SOFTWARE.
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import "../config.js" as DB
 
 CoverBackground {
     CoverPlaceholder {
         icon.source: "devrant.png"
         anchors.fill: parent
-        anchors.topMargin: -40
+        anchors.topMargin: 40
     }
 
     Label {
@@ -38,7 +37,7 @@ CoverBackground {
         font.pixelSize: Theme.fontSizeSmall
         font.bold: true
         text: "devRant"
-        y: 60
+        y: 15
     }
 
     CoverActionList {
@@ -46,7 +45,7 @@ CoverBackground {
         CoverAction {
             iconSource: "image://theme/icon-cover-refresh"
             onTriggered: {
-                pageStack.currentPage.refresh();
+                firstPage.refresh();
                 appWindow.activate();
             }
         }

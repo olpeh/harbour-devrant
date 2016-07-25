@@ -40,8 +40,13 @@ OTHER_FILES += qml/harbour-devrant.qml \
     appicons/256x256/apps/harbour-devrant.png \
     harbour-devrant.desktop \
     qml/pages/FirstPage.qml \
-    qml/pages/About.qml \
-    qml/api.js \
-    qml/pages/Banner.qml
+    qml/pages/About.qml
 
 QT += core
+
+DISTFILES += \
+    qml/components/RantListItem.qml \
+    qml/components/Banner.qml \
+    qml/components/Rant.qml \
+    qml/js/api.js \
+    qml/pages/RantPage.qml

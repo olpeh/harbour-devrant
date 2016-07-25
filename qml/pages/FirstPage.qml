@@ -24,7 +24,8 @@ SOFTWARE.
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import "../api.js" as API
+import "../components"
+import "../js/api.js" as API
 
 Page {
     id: root
@@ -36,17 +37,29 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("Refresh")
-                onClicked: {
-                    console.log("Unimplemented")
-                }
-            }
-            MenuItem {
                 text: qsTr("About")
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("About.qml"))
                 }
             }
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    refresh()
+                }
+            }
+        }
+
+        PushUpMenu {
+            visible: !busyIndicator.running
+            MenuItem {
+                text: qsTr("Load more")
+                onClicked: loadMore()
+            }
+        }
+
+        ListModel {
+            id: rantModel
         }
 
         SilicaListView {
@@ -54,22 +67,25 @@ Page {
             model: rantModel
             anchors.fill: parent
             header: PageHeader {
-                title: qStr("devRant")
+                title: qsTr("Recent")
+            }
+
+            ViewPlaceholder {
+                enabled: busyIndicator.running
+                BusyIndicator {
+                    id: busyIndicator
+                    anchors.centerIn: parent
+                    size: BusyIndicatorSize.Large
+                    running: true
+                }
             }
 
             delegate: RantListItem {
-                visible: dataLoaded
+                visible: true
                 item: model
             }
 
             VerticalScrollDecorator {
-            }
-
-            PushUpMenu {
-                MenuItem {
-                    text: qsTr("Load more")
-                    onClicked: console.log("Load more")
-                }
             }
         }
     }
@@ -79,7 +95,36 @@ Page {
     }
 
     Component.onCompleted: {
-        console.log("onCompleted")
+        refresh()
+    }
+
+    function refresh() {
+        busyIndicator.running = true
+        API.getRecent(handleResult)
+    }
+
+    function loadMore() {
+        console.log("Load more, plz")
+    }
+
+    function handleResult(res) {
+        console.log("handleResult")
+        busyIndicator.running = false
+
+        if(res.error) {
+            console.log(res.error)
+            banner.notify("Error occured - please try again later!")
+        }
+        else {
+            console.log(res.rants.length)
+            for (var i = 0; i < res.rants.length; i++) {
+                var rant = res.rants[i]
+                if (rant.attached_image === "") {
+                    rant.attached_image = undefined
+                }
+                rantModel.append(rant)
+            }
+        }
     }
 }
 

@@ -24,13 +24,14 @@ SOFTWARE.
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import "../components"
 
 Page {
     id: rantPage
-    property var rant
+    property var item
 
     Rant {
-        rant: rant
+        rant: item
         listMode: false
     }
 
