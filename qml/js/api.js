@@ -26,8 +26,9 @@ SOFTWARE.
 
 var BASE = "https://www.devrant.io/api/devrant";
 var APPID = "?app=3";
+var PAGESIZE = 10;
 
-function request(method, endpoint, callBack) {
+function request(method, endpoint, sort, skip, callBack) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -41,14 +42,20 @@ function request(method, endpoint, callBack) {
             callBack(res);
         }
     }
-
-    xhr.open(method, BASE + endpoint + APPID);
+    var url = BASE + endpoint + APPID + '&sort=' + sort + '&limit=' + PAGESIZE + '&skip=' + skip;
+    console.log(url);
+    xhr.open(method, url);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.send();
 }
 
-function getRecent(callBack) {
-    console.log("Let's get recent rants!");
-    return request('GET', '/rants', callBack);
+function get(sort, pageNumber, callBack) {
+    var skip = PAGESIZE * pageNumber
+    return request('GET', '/rants', sort, skip, callBack);
 }
+
+function getComments(id, callBack) {
+    return request('GET', '/rants/' + id, '', 0, callBack)
+}
+

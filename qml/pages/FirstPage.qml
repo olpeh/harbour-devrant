@@ -29,6 +29,7 @@ import "../js/api.js" as API
 
 Page {
     id: root
+    property int pageNumber: 0
 
     SilicaFlickable {
         id: flickable
@@ -65,7 +66,8 @@ Page {
         SilicaListView {
             id: rantList
             model: rantModel
-            anchors.fill: parent
+            width: parent.width
+            height: loadMoreIndicator.running ? parent.height - 100 : parent.height
             header: PageHeader {
                 title: qsTr("Recent")
             }
@@ -90,6 +92,19 @@ Page {
         }
     }
 
+    Item {
+        width: parent.width
+        height: 100
+        anchors.bottom: parent.bottom
+
+        BusyIndicator {
+            id: loadMoreIndicator
+            size: BusyIndicatorSize.Medium
+            running: false
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+    }
+
     Banner {
         id: banner
     }
@@ -99,24 +114,27 @@ Page {
     }
 
     function refresh() {
+        pageNumber = 0
+        rantModel.clear()
         busyIndicator.running = true
-        API.getRecent(handleResult)
+        API.get('recent', pageNumber, handleResult)
     }
 
     function loadMore() {
-        console.log("Load more, plz")
+        pageNumber++
+        loadMoreIndicator.running = true
+        API.get('recent', pageNumber, handleResult)
     }
 
     function handleResult(res) {
-        console.log("handleResult")
         busyIndicator.running = false
+        loadMoreIndicator.running = false
 
         if(res.error) {
             console.log(res.error)
             banner.notify("Error occured - please try again later!")
         }
         else {
-            console.log(res.rants.length)
             for (var i = 0; i < res.rants.length; i++) {
                 var rant = res.rants[i]
                 if (rant.attached_image === "") {

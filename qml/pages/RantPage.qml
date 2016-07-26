@@ -30,13 +30,52 @@ Page {
     id: rantPage
     property var item
 
-    Rant {
-        rant: item
-        listMode: false
-    }
+    SilicaFlickable {
+        contentHeight: column.y + column.height
+        width: parent.width
+        height: parent.height
 
-    Banner {
-        id: banner
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Refresh")
+                onClicked: {
+                    console.log("Wadup?")
+                }
+            }
+        }
+
+
+        Column {
+            id: column
+            spacing: Theme.paddingLarge
+            width: parent.width
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            PageHeader {
+                title: item.user_username
+            }
+
+            SectionHeader { text: qsTr("Rant") }
+
+            Rant {
+                id: rantItem
+                rant: item
+                listMode: false
+            }
+
+            SectionHeader {
+                text: qsTr("Comments")
+            }
+
+            Comments {
+                rantId: item.id
+            }
+
+        }
+
+        Banner {
+            id: banner
+        }
     }
 }
 

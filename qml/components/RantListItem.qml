@@ -34,6 +34,7 @@ BackgroundItem {
     Rant {
         id: rantElement
         rant: item
+        anchors.centerIn: parent
     }
 
     onClicked: {

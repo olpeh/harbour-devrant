@@ -7,36 +7,12 @@ Column {
     width: parent.width
     spacing: Theme.paddingLarge
 
-    Label {
-        id: username
-        text: rant.user_username
-        truncationMode: TruncationMode.Fade
-        color: Theme.primaryColor
-        anchors {
-            left: parent.left
-            right: parent.right
-            margins: Theme.paddingLarge
-        }
-    }
-
-    Label {
-        id: rantScore
-        text: rant.score
-        truncationMode: TruncationMode.Fade
-        color: Theme.primaryColor
-        anchors {
-            left: parent.left
-            right: parent.right
-            margins: Theme.paddingLarge
-        }
-    }
-
-    Text {
+   Text {
         id: rantText
-        font.pixelSize: 0
+        font.pixelSize: Theme.fontSizeSmall
         color: Theme.primaryColor
         wrapMode: Text.WordWrap
-        maximumLineCount: 4
+        maximumLineCount: listMode ? 4 : -1
         text: rant.text + (truncated ? "[Read more]" : "")
         anchors {
             left: parent.left

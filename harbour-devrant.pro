@@ -49,4 +49,5 @@ DISTFILES += \
     qml/components/Banner.qml \
     qml/components/Rant.qml \
     qml/js/api.js \
-    qml/pages/RantPage.qml
+    qml/pages/RantPage.qml \
+    qml/components/Comments.qml

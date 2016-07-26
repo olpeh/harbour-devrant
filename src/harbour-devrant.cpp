@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
     view->rootContext()->setContextProperty("appVersion", APP_VERSION);
     view->rootContext()->setContextProperty("appBuildNum", APP_BUILDNUM);
-    qDebug() << "Version:" << APP_VERSION << "-" << APP_BUILDNUM << QDateTime::currentDateTime().toString();
+    qDebug() << "Version:" << APP_VERSION << "-" << APP_BUILDNUM;
 
     view->setSource(SailfishApp::pathTo("qml/harbour-devrant.qml"));
     view->setResizeMode(QQuickView::SizeRootObjectToView);
