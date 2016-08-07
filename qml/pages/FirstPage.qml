@@ -52,14 +52,6 @@ Page {
             }
         }
 
-        PushUpMenu {
-            visible: !busyIndicator.running
-            MenuItem {
-                text: qsTr("Load more")
-                onClicked: loadMore()
-            }
-        }
-
         ListModel {
             id: rantModel
         }
@@ -89,6 +81,14 @@ Page {
             }
 
             VerticalScrollDecorator {
+            }
+
+            PushUpMenu {
+                visible: !busyIndicator.running
+                MenuItem {
+                    text: qsTr("Load more")
+                    onClicked: loadMore()
+                }
             }
         }
     }
