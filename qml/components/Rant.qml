@@ -5,27 +5,58 @@ Column {
     property var rant
     property bool listMode: true
     width: parent.width
-    spacing: Theme.paddingLarge
+    spacing: Theme.paddingMedium
 
-   Text {
-        id: rantText
-        font.pixelSize: Theme.fontSizeSmall
-        color: Theme.primaryColor
-        wrapMode: Text.WordWrap
-        maximumLineCount: listMode ? 4 : -1
-        text: rant.text + (truncated ? "[Read more]" : "")
-        anchors {
-            left: parent.left
-            right: parent.right
-            margins: Theme.paddingLarge
+    Item {
+        width: parent.width
+        height: childrenRect.height
+
+        RantScore {
+            id: rantScore
+            visible: listMode
+            currentRant: rant
+        }
+
+        Text {
+            id: rantText
+            font.pixelSize: Theme.fontSizeMedium
+            color: Theme.primaryColor
+            wrapMode: Text.WordWrap
+            maximumLineCount: listMode ? 4 : -1
+            text: rant.text + (rantText.truncated ? "[Read more]" : "")
+            anchors {
+                left: rantScore.visible ? rantScore.right : parent.left
+                right: parent.right
+                margins: Theme.paddingLarge
+            }
         }
     }
 
     Image {
         id: rantImage
         fillMode: Image.PreserveAspectFit
-        anchors.horizontalCenter: parent.horizontalCenter
-        scale: parent.width / rantImage.width
+        scale:  listMode ? 1 : parent.width / rantImage.width
+        anchors {
+            left: parent.left
+            right: parent.right
+            rightMargin: listMode ? Theme.paddingLarge : 0
+            leftMargin: listMode ? Theme.paddingLarge : 0
+        }
+    }
+
+    Text {
+        id: tags
+        visible: rant.tagString
+        font.pixelSize: Theme.fontSizeExtraSmall
+        font.bold: true
+        color: Theme.secondaryColor
+        wrapMode: Text.WordWrap
+        text: rant.tagString
+        anchors {
+            left: parent.left
+            right: parent.right
+            margins: Theme.paddingLarge
+        }
     }
 
     Component.onCompleted: {
@@ -34,6 +65,5 @@ Column {
             rantImage.height = rant.attached_image.height
             rantImage.source = rant.attached_image.url
         }
-
     }
 }

@@ -28,6 +28,7 @@ import "../components"
 
 Page {
     id: rantPage
+    allowedOrientations: Orientation.All
     property var item
 
     SilicaFlickable {
@@ -56,6 +57,11 @@ Page {
             }
 
             SectionHeader { text: qsTr("Rant") }
+
+            RantScore {
+                id: rantScore
+                currentRant: item
+            }
 
             Rant {
                 id: rantItem

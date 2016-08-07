@@ -40,5 +40,4 @@ BackgroundItem {
     onClicked: {
         pageStack.push(Qt.resolvedUrl("../pages/RantPage.qml"), {item: item});
     }
-
 }

@@ -29,6 +29,7 @@ import "../js/api.js" as API
 
 Page {
     id: root
+    allowedOrientations: Orientation.All
     property int pageNumber: 0
 
     SilicaFlickable {
@@ -67,7 +68,7 @@ Page {
             id: rantList
             model: rantModel
             width: parent.width
-            height: loadMoreIndicator.running ? parent.height - 100 : parent.height
+            height: parent.height
             header: PageHeader {
                 title: qsTr("Recent")
             }
@@ -139,6 +140,16 @@ Page {
                 var rant = res.rants[i]
                 if (rant.attached_image === "") {
                     rant.attached_image = undefined
+                }
+
+                if (rant.tags) {
+                    if (rant.tags) {
+                        var tagStr = ""
+                        for (var j = 0; j < rant.tags.length; j++) {
+                            tagStr += "#" + rant.tags[j] + " "
+                        }
+                        rant.tagString = tagStr
+                    }
                 }
                 rantModel.append(rant)
             }

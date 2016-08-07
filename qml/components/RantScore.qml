@@ -25,21 +25,26 @@ SOFTWARE.
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 
-CoverBackground {
-    CoverPlaceholder {
-        icon.source: "devrant.png"
-        anchors.fill: parent
-        anchors.topMargin: 40
+Rectangle {
+    property var currentRant
+    id: rantCircle
+    color: Theme.secondaryHighlightColor
+    radius: width
+    width: 45 + score.width
+    height: width
+    anchors {
+        left: parent.left
+        rightMargin: Theme.paddingMedium
+        leftMargin: Theme.paddingLarge
     }
 
-    CoverActionList {
-        id: coverActions
-        CoverAction {
-            iconSource: "image://theme/icon-cover-refresh"
-            onTriggered: {
-                firstPage.refresh();
-                appWindow.activate();
-            }
-        }
+    Label {
+        id: score
+        text: currentRant.score
+        color: Theme.highlightColor
+        font.bold: true
+        font.pixelSize: Theme.fontSizeMedium
+        anchors.centerIn: parent
     }
 }
+
