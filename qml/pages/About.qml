@@ -37,11 +37,15 @@ Page {
 
         Column {
             id: column
+            spacing: Theme.paddingLarge
+            width: parent.width
+
             PageHeader {
                 title: qsTr("About")
             }
-            width: parent.width
+
             SectionHeader { text: qsTr("General") }
+
             Text {
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.primaryColor
@@ -52,12 +56,20 @@ Page {
                     right: parent.right
                     margins: Theme.paddingLarge
                 }
-                text: qsTr("Devrant is ...")
+                text: qsTr("This is an unofficial application for browsing devRant. Please see devrant.io for more information about devRant.")
             }
-            Item {
-                width: parent.width
-                height: Theme.paddingMedium
+
+            Button {
+                text: "devRant.io"
+                anchors.horizontalCenter: parent.horizontalCenter
+                onClicked: {
+                    banner.notify(qsTr("Launching external browser"))
+                    Qt.openUrlExternally("https://www.devrant.io/")
+                }
             }
+
+            SectionHeader { text: qsTr("Version") }
+
             Text {
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.primaryColor
@@ -115,6 +127,7 @@ Page {
             }
 
             SectionHeader { text: qsTr("License") }
+
             Text {
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.primaryColor
@@ -127,6 +140,7 @@ Page {
                 }
                 text: qsTr("The source code is licensed under MIT license.")
             }
+
             Button {
                 text: qsTr("Read the license")
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -135,6 +149,7 @@ Page {
                     Qt.openUrlExternally("https://raw.githubusercontent.com/olpeh/harbour-devrant/master/LICENSE")
                 }
             }
+
             Item {
                 width: parent.width
                 height: 10

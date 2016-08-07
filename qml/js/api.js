@@ -26,7 +26,7 @@ SOFTWARE.
 
 var BASE = "https://www.devrant.io/api/devrant";
 var APPID = "?app=3";
-var PAGESIZE = 10;
+var PAGESIZE = 12;
 
 function request(method, endpoint, sort, skip, callBack) {
     var xhr = new XMLHttpRequest();

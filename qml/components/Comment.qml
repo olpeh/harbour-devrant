@@ -24,63 +24,52 @@ SOFTWARE.
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import "../components"
 
-Page {
-    id: rantPage
-    allowedOrientations: Orientation.All
-    property var item
+Column {
+    property var commentItem
+    id: commentListItem
+    width: parent.width
+    height: childrenRect.height + Theme.paddingLarge
+    spacing: Theme.paddingMedium
 
-    SilicaFlickable {
-        contentHeight: column.y + column.height + Theme.paddingLarge
-        anchors.fill: parent
+    Label {
+        id: username
+        text: model.user_username + " (" + model.user_score + ")"
+        truncationMode: TruncationMode.Fade
+        color: Theme.primaryColor
+        font.bold: true
+        anchors {
+            left: parent.left
+            right: parent.right
+            margins: Theme.paddingLarge
+        }
+    }
 
-        PullDownMenu {
-            MenuItem {
-                text: qsTr("Refresh")
-                onClicked: {
-                    comments.refresh()
-                }
-            }
+    Item {
+        width: parent.width
+        height: childrenRect.height
+        anchors {
+            left: parent.left
+            right: parent.right
         }
 
-        Column {
-            id: column
-            spacing: Theme.paddingLarge
+        RantScore {
+            id: rantScore
+            currentRant: commentItem
+        }
+
+        Text {
+            id: commentText
+            font.pixelSize: Theme.fontSizeSmall
+            color: Theme.primaryColor
+            wrapMode: Text.WordWrap
+            text: model.body
             width: parent.width
-
-            PageHeader {
-                title: item.user_username + " (" + item.user_score + ")"
+            anchors {
+                left: rantScore.right
+                right: parent.right
+                margins: Theme.paddingLarge
             }
-
-            SectionHeader { text: qsTr("Rant") }
-
-            RantScore {
-                id: rantScore
-                currentRant: item
-            }
-
-            Rant {
-                id: rantItem
-                rant: item
-                listMode: false
-            }
-
-            SectionHeader {
-                text: qsTr("Comments")
-            }
-
-            Comments {
-                id: comments
-                rantId: item.id
-                height: item.num_comments * 220 // Uggly hack plz fix me
-            }
-        }
-
-        Banner {
-            id: banner
         }
     }
 }
-
-

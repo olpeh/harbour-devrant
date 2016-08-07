@@ -51,4 +51,5 @@ DISTFILES += \
     qml/js/api.js \
     qml/pages/RantPage.qml \
     qml/components/Comments.qml \
-    qml/components/RantScore.qml
+    qml/components/RantScore.qml \
+    qml/components/Comment.qml

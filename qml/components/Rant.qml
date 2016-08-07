@@ -44,18 +44,41 @@ Column {
         }
     }
 
-    Text {
-        id: tags
-        visible: rant.tagString
-        font.pixelSize: Theme.fontSizeExtraSmall
-        font.bold: true
-        color: Theme.secondaryColor
-        wrapMode: Text.WordWrap
-        text: rant.tagString
-        anchors {
-            left: parent.left
-            right: parent.right
-            margins: Theme.paddingLarge
+    Item {
+        width: parent.width
+        height: Theme.fontSizeMedium
+        visible: listMode
+
+        Text {
+            id: tags
+            visible: rant.tagString
+            font.pixelSize: Theme.fontSizeExtraSmall
+            font.bold: true
+            color: Theme.secondaryColor
+            wrapMode: Text.WordWrap
+            text: rant.tagString
+            anchors {
+                left: parent.left
+                right: commentsIcon.left
+                margins: Theme.paddingLarge
+            }
+        }
+
+        Image {
+            id: commentsIcon
+            source: "image://theme/icon-m-bubble-universal"
+            anchors.right: numComments.left
+        }
+
+        Label {
+            id: numComments
+            color: Theme.primaryColor
+            font.bold: true
+            font.pixelSize: Theme.fontSizeLarge
+            text: rant.num_comments
+            anchors.right: parent.right
+            anchors.rightMargin: Theme.paddingLarge
+            anchors.leftMargin: Theme.paddingSmall
         }
     }
 
